@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RealmNetCoreSample.Contexts;
 using RealmNetCoreSample.Services;
 using RealmNetCoreSample.Middlewares;
+using Microsoft.EntityFrameworkCore;
 
 namespace RealmNetCoreSample
 {
@@ -27,6 +29,8 @@ namespace RealmNetCoreSample
 
             services.AddSingleton<IRealmProviderService>(new RealmProviderService(/* ここで設定ファイルを渡したり */));
             services.AddSingleton<IPasswordHashService, PasswordHashService>();
+
+            services.AddDbContext<DummyDatabaseContext>(options => options.UseInMemoryDatabase("dummy"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

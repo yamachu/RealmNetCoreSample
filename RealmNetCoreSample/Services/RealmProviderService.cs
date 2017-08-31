@@ -31,7 +31,7 @@ namespace RealmNetCoreSample.Services
 
             Task.Run(async () =>
             {
-                var adminUser = await User.LoginAsync(adminCredential,
+                var adminUser = await Realms.Sync.User.LoginAsync(adminCredential,
                                                       new Uri($"http://{DatabaseServerDomain}:{DatabaseServerPort}/auth"));
 
                 // For admin
