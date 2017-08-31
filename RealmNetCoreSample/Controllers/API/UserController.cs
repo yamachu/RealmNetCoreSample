@@ -30,7 +30,7 @@ namespace RealmNetCoreSample.Controllers.API
             user.Password = PasswordService.GetHashedString(user.Password);
             user.AccessToken = PasswordService.GenerateAccessToken(user.Name, user.Password);
 
-            var adminRealm = await RealmService.GetAdminInstanceAsync();
+            var adminRealm = RealmService.GetAdminInstance();
             adminRealm.Write(() =>
             {
                 adminRealm.Add(user);

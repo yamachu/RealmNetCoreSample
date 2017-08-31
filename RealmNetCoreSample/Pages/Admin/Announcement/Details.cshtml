@@ -1,0 +1,52 @@
+@page
+@model RealmNetCoreSample.Pages.Admin.Announcement.DetailsModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>Announcement</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Announcement.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Announcement.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Announcement.Body)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Announcement.Body)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Announcement.CreatedAt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Announcement.CreatedAt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Announcement.ModifiedAt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Announcement.ModifiedAt)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Announcement.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
+</body>
+</html>

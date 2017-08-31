@@ -45,7 +45,8 @@ namespace RealmNetCoreSample.Middlewares
             }
             else
             {
-                // no authorization header
+                // http://tnakamura.hatenablog.com/entry/2017/07/06/aspnetcore-basic-authentication
+                context.Response.Headers["WWW-Authenticate"] = "Basic";
                 context.Response.StatusCode = 401; //Unauthorized
                 return;
             }

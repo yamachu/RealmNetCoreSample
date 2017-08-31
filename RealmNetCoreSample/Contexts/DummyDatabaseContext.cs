@@ -18,5 +18,9 @@ namespace RealmNetCoreSample.Contexts
         {
             optionsBuilder.UseInMemoryDatabase("dummy");
         }
+
+        public DbSet<RealmNetCoreSample.Models.Announcement> Announcement { get; set; }
+
+        public DbSet<RealmNetCoreSample.Models.User> User { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace RealmNetCoreSample.Controllers.API
         [Route("config")]
         public async Task<JsonResult> GetDatabaseConfig()
         {
-            var realm = await RealmService.GetSharedInstanceAsync();
+            var realm = RealmService.GetSharedInstance();
             var session = realm.GetSession();
 
             var realmUri = session.ServerUri;
