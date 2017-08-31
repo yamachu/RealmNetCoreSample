@@ -32,6 +32,11 @@ namespace RealmNetCoreSample.Pages.Admin.User
             var realm = _context.GetAdminInstance();
             realm.Write(() =>
             {
+                // Todo: 
+                // - Password に不正な文字が入っていないかのバリデーション
+                // -- User モデルにバリデーションのアトリビュートを追加するのがいいかもしれない
+                // - Hash にする
+                // -- DI していい感じに
                 realm.Add(User);
             });
 
