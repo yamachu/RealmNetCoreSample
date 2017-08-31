@@ -1,0 +1,23 @@
+FROM ubuntu:16.04
+
+EXPOSE 9080
+
+RUN apt-get update && \
+    apt-get -y install curl
+
+# RealmのPackageCloudリポジトリをセットアップ
+RUN curl -s https://packagecloud.io/install/repositories/realm/realm/script.deb.sh | bash
+
+# リポジトリをアップデート
+RUN apt-get update
+
+# Realm Object Serverをインストール
+RUN apt-get install -y realm-object-server-developer
+
+# サービスとして登録、起動
+RUN systemctl enable realm-object-server
+
+VOLUME ["/etc/realm/", "/var/lib/realm/object-server"]
+
+# サービスの起動
+CMD /usr/bin/realm-object-server -c /etc/realm/configuration.yml

@@ -1,0 +1,9 @@
+realm:
+  build: .
+  dockerfile: Dockerfile-realm
+  container_name: realm
+  volumes:
+    - ./realm-object:/var/lib/realm/object-server
+    - ./configuration.yml:/etc/realm/configuration.yml
+  ports:
+    - "9080:9080"
