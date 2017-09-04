@@ -6,10 +6,10 @@ namespace RealmNetCoreSample.Models
 {
     public class User : RealmObject
     {
-        [PrimaryKey]
         [JsonIgnore]
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
+        [PrimaryKey]
         [Required]
         public string Name { get; set; }
 
