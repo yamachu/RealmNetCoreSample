@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using RealmSyncClinetLibrary.APIClient;
+using RealmSyncClinetLibrary.SyncLib;
 
 namespace RealmSyncClient
 {
@@ -24,6 +25,21 @@ namespace RealmSyncClient
             var dbUrl = await client.GetDatabaseConfig();
 
             Console.WriteLine(dbUrl);
+
+            var shared = await SharedModelSync.Initialize("hoge@hoge", "fuga", "localhost", 9080, dbUrl);
+            shared.AnnounceObservable.Subscribe((_) => {
+                foreach (var an in shared.GetAnnouncement())
+                {
+                    Console.WriteLine($"{an.Title}: {an.Body}");
+                }
+            });
+            var annou = shared.GetAnnouncement();
+            foreach (var an in annou) {
+                Console.WriteLine($"{an.Title}: {an.Body}");
+            }
+
+            Console.WriteLine("Press finish");
+            Console.ReadLine();
         }
     }
 }
