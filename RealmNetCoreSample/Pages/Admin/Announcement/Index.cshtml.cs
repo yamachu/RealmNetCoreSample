@@ -18,7 +18,7 @@ namespace RealmNetCoreSample.Pages.Admin.Announcement
 
         public IList<Models.Announcement> Announcement { get; set; }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
             var realm = _context.GetSharedInstance();
             Announcement = realm.All<Models.Announcement>()
