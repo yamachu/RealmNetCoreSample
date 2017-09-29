@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using RealmNetCoreSample.Models;
 using RealmNetCoreSample.Services;
+using Realms;
 
 namespace RealmNetCoreSample.Middlewares
 {
@@ -28,7 +29,8 @@ namespace RealmNetCoreSample.Middlewares
                 return;
             }
 
-            var realm = await RealmService.GetAdminInstanceAsync();
+            var config = RealmService.GetAdminConfiguration();
+            var realm = Realm.GetInstance(config);
             var authUser = realm.All<User>().FirstOrDefault(user => user.AccessToken.Equals(authHeader, StringComparison.OrdinalIgnoreCase));
 
             if (authUser != default(User))

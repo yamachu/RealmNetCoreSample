@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RealmNetCoreSample.Services;
+using Realms;
 
 namespace RealmNetCoreSample.Pages.Admin.Announcement
 {
@@ -16,14 +17,16 @@ namespace RealmNetCoreSample.Pages.Admin.Announcement
 
         public Models.Announcement Announcement { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var realm = _context.GetSharedInstance();
+            var config = _context.GetSharedConfiguration();
+            var realm = Realm.GetInstance(config);
+            realm.Refresh();
             Announcement = realm.Find<Models.Announcement>(id);
 
             if (Announcement == null)

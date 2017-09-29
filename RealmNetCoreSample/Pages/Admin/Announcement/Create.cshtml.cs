@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RealmNetCoreSample.Services;
+using Realms;
 
 namespace RealmNetCoreSample.Pages.Admin.Announcement
 {
@@ -22,14 +23,15 @@ namespace RealmNetCoreSample.Pages.Admin.Announcement
         [BindProperty]
         public Models.Announcement Announcement { get; set; }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var realm = _context.GetSharedInstance();
+            var config = _context.GetSharedConfiguration();
+            var realm = Realm.GetInstance(config);
             realm.Write(() =>
             {
                 realm.Add(Announcement);

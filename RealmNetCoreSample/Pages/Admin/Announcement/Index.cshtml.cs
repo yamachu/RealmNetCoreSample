@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RealmNetCoreSample.Services;
+using Realms;
 
 namespace RealmNetCoreSample.Pages.Admin.Announcement
 {
@@ -20,7 +21,9 @@ namespace RealmNetCoreSample.Pages.Admin.Announcement
 
         public void OnGet()
         {
-            var realm = _context.GetSharedInstance();
+            var config = _context.GetSharedConfiguration();
+            var realm = Realm.GetInstance(config);
+            realm.Refresh();
             Announcement = realm.All<Models.Announcement>()
                                 .OrderBy(announce => announce.ModifiedAt)
                                 .ThenBy(annouce => annouce.CreatedAt)

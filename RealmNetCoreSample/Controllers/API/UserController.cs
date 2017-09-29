@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RealmNetCoreSample.Models;
 using RealmNetCoreSample.Services;
+using Realms;
 
 namespace RealmNetCoreSample.Controllers.API
 {
@@ -20,7 +21,7 @@ namespace RealmNetCoreSample.Controllers.API
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> PostCreateUser([FromBody] User user)
+        public IActionResult PostCreateUser([FromBody] User user)
         {
             if (!ModelState.IsValid || user.Name.Contains(":") || user.Password.Contains(":"))
             {
@@ -30,7 +31,8 @@ namespace RealmNetCoreSample.Controllers.API
             user.Password = PasswordService.GetHashedString(user.Password);
             user.AccessToken = PasswordService.GenerateAccessToken(user.Name, user.Password);
 
-            var adminRealm = RealmService.GetAdminInstance();
+            var config = RealmService.GetAdminConfiguration();
+            var adminRealm = Realm.GetInstance(config);
             adminRealm.Write(() =>
             {
                 adminRealm.Add(user);

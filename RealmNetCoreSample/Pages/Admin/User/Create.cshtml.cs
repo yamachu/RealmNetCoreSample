@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RealmNetCoreSample.Services;
+using Realms;
 
 namespace RealmNetCoreSample.Pages.Admin.User
 {
@@ -22,14 +23,15 @@ namespace RealmNetCoreSample.Pages.Admin.User
         [BindProperty]
         public Models.User User { get; set; }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var realm = _context.GetAdminInstance();
+            var config = _context.GetAdminConfiguration();
+            var realm = Realm.GetInstance(config);
             realm.Write(() =>
             {
                 // Todo: 

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RealmNetCoreSample.Services;
+using Realms;
 
 namespace RealmNetCoreSample.Pages.Admin.User
 {
@@ -16,14 +17,16 @@ namespace RealmNetCoreSample.Pages.Admin.User
 
         public Models.User User { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var realm = _context.GetAdminInstance();
+            var config = _context.GetAdminConfiguration();
+            var realm = Realm.GetInstance(config);
+            realm.Refresh();
             User = realm.Find<Models.User>(id);
 
             if (User == null)

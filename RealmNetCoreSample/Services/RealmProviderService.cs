@@ -7,10 +7,8 @@ namespace RealmNetCoreSample.Services
 {
     public interface IRealmProviderService
     {
-        Realm GetAdminInstance();
-        Task<Realm> GetAdminInstanceAsync();
-        Realm GetSharedInstance();
-        Task<Realm> GetSharedInstanceAsync();
+        SyncConfiguration GetAdminConfiguration();
+        SyncConfiguration GetSharedConfiguration();
     }
 
     public class RealmProviderService : IRealmProviderService
@@ -58,12 +56,15 @@ namespace RealmNetCoreSample.Services
             }).Wait();
         }
 
-        public Realm GetAdminInstance() => Realm.GetInstance(AdminRealmConfiguration);
+        public SyncConfiguration GetAdminConfiguration()
+        {
+            return AdminRealmConfiguration;
+        }
 
-        public Task<Realm> GetAdminInstanceAsync() => Realm.GetInstanceAsync(AdminRealmConfiguration);
 
-        public Realm GetSharedInstance() => Realm.GetInstance(SharedRealmConfiguration);
-
-        public Task<Realm> GetSharedInstanceAsync() => Realm.GetInstanceAsync(SharedRealmConfiguration);
+        public SyncConfiguration GetSharedConfiguration()
+        {
+            return SharedRealmConfiguration;
+        }
     }
 }

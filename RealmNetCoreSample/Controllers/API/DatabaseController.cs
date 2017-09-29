@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Realms;
 using Realms.Sync;
 using RealmNetCoreSample.Services;
 using System.Threading.Tasks;
@@ -18,9 +19,10 @@ namespace RealmNetCoreSample.Controllers.API
 
         [HttpGet]
         [Route("config")]
-        public async Task<JsonResult> GetDatabaseConfig()
+        public JsonResult GetDatabaseConfig()
         {
-            var realm = RealmService.GetSharedInstance();
+            var config = RealmService.GetSharedConfiguration();
+            var realm = Realm.GetInstance(config);
             var session = realm.GetSession();
 
             var realmUri = session.ServerUri;
