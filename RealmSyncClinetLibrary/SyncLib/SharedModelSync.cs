@@ -13,8 +13,10 @@ namespace RealmSyncClinetLibrary.SyncLib
     {
         private Realm _realm;
         private IDisposable annoucementToken;
-        private Subject<object> annouceSub;
-        public IObservable<object> AnnounceObservable;
+        private Subject<int> annouceSub;
+        public IObservable<int> AnnounceObservable {
+            get { return annouceSub; }
+        }
 
         private SharedModelSync(){ }
 
@@ -31,8 +33,7 @@ namespace RealmSyncClinetLibrary.SyncLib
                 typeof(Announcement)
             };
             modelSync._realm = await Realm.GetInstanceAsync(sharedDatabaseConfig);
-            modelSync.annouceSub = new Subject<object>();
-            modelSync.AnnounceObservable = modelSync.annouceSub;
+            modelSync.annouceSub = new Subject<int>();
 
             modelSync.annoucementToken = modelSync._realm.All<Announcement>().SubscribeForNotifications((sender, changes, error) =>
             {
